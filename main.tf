@@ -13,24 +13,20 @@ provider "panos" {
   password = var.paloalto_password
 }
 
-# Define the variables for Palo Alto credentials
 variable "paloalto_hostname" {
   type        = string
   description = "The hostname or IP address of the Palo Alto firewall"
-  default     = ""
 }
 
 variable "paloalto_username" {
   type        = string
   description = "The username for the Palo Alto firewall"
-  default     = ""
 }
 
 variable "paloalto_password" {
   type        = string
   description = "The password for the Palo Alto firewall"
   sensitive   = true
-  default     = ""
 }
 
 
