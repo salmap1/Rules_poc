@@ -11,8 +11,7 @@ terraform {
 provider "panos" {
   hostname = var.paloalto_hostname
   username = var.paloalto_username
-  password = var.paloalto_password
-  timeout  = "30s" 
+  password = var.paloalto_password 
 }
 
 # Load the security rules from the JSON file
