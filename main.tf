@@ -12,6 +12,7 @@ provider "panos" {
   hostname = var.paloalto_hostname
   username = var.paloalto_username
   password = var.paloalto_password
+  timeout  = "30s" 
 }
 
 # Load the security rules from the JSON file
