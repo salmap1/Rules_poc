@@ -1,0 +1,61 @@
+name: 'Terraform with Palo Alto'
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Get Changed Files
+      id: changes
+      run: |
+        git fetch origin
+        changed_files=$(git diff-tree --no-commit-id --name-only -r HEAD | tr '\n' ',' | sed 's/,$//')
+        echo "CHANGED_FILES=$changed_files" >> $GITHUB_ENV
+
+    - name: Extract Previous and Current JSON Versions
+      if: env.CHANGED_FILES
+      run: |
+        for file in $CHANGED_FILES; do
+          git show HEAD^:$file > "old_$file"
+          cp "$file" "new_$file"
+        done
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Run Validation Script
+      run: |
+        python validate_firewall_changes.py $CHANGED_FILES
+
+    - name: Print Detected Changes
+      run: cat detected_changes.json
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan -input=false
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve -input=false
+

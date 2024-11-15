@@ -1,0 +1,16 @@
+{
+  "Allow-SSH-Rule": {
+    "name": "Allow-SSH-Rule_IP_Team",
+    "description": "Allow SSH traffic from any source to any destination by NOC team",
+    "source_zones": ["any"],
+    "source_addresses": ["5.5.5.5"],
+    "source_users": ["any"],
+    "destination_zones": ["any"],
+    "destination_addresses": ["6.6.6.6"],
+    "categories": ["any"],
+    "applications": ["ssh"],
+    "services": ["application-default"],
+    "action": "allow",
+    "tags": ["IP-Team"]
+  }
+}
