@@ -1,7 +1,7 @@
 {
   "Allow-SSH-Rule": {
-    "name": "Allow-SSH-Ruless",
-    "description": "Allow SSH traffic from any source to any destination",
+    "name": "Allow-SSH-Rule_IP_Team",
+    "description": "Allow SSH traffic from any source to any destination by NOC team",
     "source_zones": ["any"],
     "source_addresses": ["5.5.5.5"],
     "source_users": ["any"],
@@ -11,7 +11,7 @@
     "applications": ["any"],
     "services": ["application-default"],
     "action": "allow",
-    "tags": ["General"]
+    "tags": ["IP-Team"]
   }
 }
 

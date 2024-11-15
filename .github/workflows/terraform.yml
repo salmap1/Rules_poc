@@ -41,7 +41,6 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         env:
-          TF_VAR_palo_alto_hostname: ${{ secrets.PALO_ALTO_HOSTNAME }}
-          TF_VAR_palo_alto_username: ${{ secrets.PALO_ALTO_USERNAME }}
-          TF_VAR_palo_alto_password: ${{ secrets.PALO_ALTO_PASSWORD }}
-
+          PALO_ALTO_HOSTNAME: ${{ secrets.PALO_ALTO_HOSTNAME }}
+          PALO_ALTO_USERNAME: ${{ secrets.PALO_ALTO_USERNAME }}
+          PALO_ALTO_PASSWORD: ${{ secrets.PALO_ALTO_PASSWORD }}

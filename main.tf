@@ -8,30 +8,43 @@ terraform {
 }
 
 provider "panos" {
-  hostname = var.palo_alto_hostname
-  username = var.palo_alto_username
-  password = var.palo_alto_password
+  hostname = var.paloalto_hostname
+  username = var.paloalto_username
+  password = var.paloalto_password
 }
 
+# Define the variables for Palo Alto credentials
+variable "paloalto_hostname" {
+  type        = string
+  description = "The hostname or IP address of the Palo Alto firewall"
+  default     = ""
+}
+
+variable "paloalto_username" {
+  type        = string
+  description = "The username for the Palo Alto firewall"
+  default     = ""
+}
+
+variable "paloalto_password" {
+  type        = string
+  description = "The password for the Palo Alto firewall"
+  sensitive   = true
+  default     = ""
+}
+
+
+# Output the raw content of the file for debugging
+output "raw_json_content" {
+  value = file("${path.module}/security_rules.json")
+}
+ 
+# Try to decode the JSON
 locals {
   rules = jsondecode(file("${path.module}/security_rules.json"))
 }
-
-resource "panos_security_rule" "firewall_rules" {
-  for_each = local.rules
-
-  name                  = each.value["name"]
-  description           = each.value["description"]
-  source_zones          = each.value["source_zones"]
-  source_addresses      = each.value["source_addresses"]
-  source_users          = each.value["source_users"]
-  destination_zones     = each.value["destination_zones"]
-  destination_addresses = each.value["destination_addresses"]
-  categories            = each.value["categories"]
-  applications          = each.value["applications"]
-  services              = each.value["services"]
-  action                = each.value["action"]
-  tags                  = each.value["tags"]
+ 
+# Output the decoded rules
+output "decoded_rules" {
+  value = local.rules
 }
-
-
