@@ -13,29 +13,25 @@ provider "panos" {
   password = var.palo_alto_password
 }
 
-variable "palo_alto_hostname" {}
-variable "palo_alto_username" {}
-variable "palo_alto_password" {}
-
-variable "changes" {
-  type        = string
-  description = "JSON string containing detected changes for firewall rules."
-}
-
 locals {
-  parsed_changes = jsondecode(var.changes)
+  rules = jsondecode(file("${path.module}/security_rules.json"))
 }
 
-resource "panos_security_policy" "security_rules" {
-  for_each = tomap(local.parsed_changes["security_rules.json"]["modified_data"])
+resource "panos_security_rule" "firewall_rules" {
+  for_each = local.rules
 
-  rule_name     = each.value["name"]
-  source        = each.value["source"]
-  destination   = each.value["destination"]
-  application   = ["any"]
-  action        = each.value["action"]
-  description   = "Managed by automation"
-  source_zone   = ["any"]
-  destination_zone = ["any"]
+  name                  = each.value["name"]
+  description           = each.value["description"]
+  source_zones          = each.value["source_zones"]
+  source_addresses      = each.value["source_addresses"]
+  source_users          = each.value["source_users"]
+  destination_zones     = each.value["destination_zones"]
+  destination_addresses = each.value["destination_addresses"]
+  categories            = each.value["categories"]
+  applications          = each.value["applications"]
+  services              = each.value["services"]
+  action                = each.value["action"]
+  tags                  = each.value["tags"]
 }
+
 
