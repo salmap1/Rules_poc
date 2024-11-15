@@ -12,10 +12,7 @@
     "services": ["application-default"],
     "action": "allow",
     "tags": ["IP-Team"]
-  }
-},
-
-{
+  },
   "Deny-SSH-Rule": {
     "name": "Deny-SSH-Rule_IP_Team",
     "description": "deny SSH traffic from any source to any destination by NOC team",
@@ -31,3 +28,4 @@
     "tags": ["IP-Team"]
   }
 }
+
