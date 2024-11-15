@@ -13,7 +13,7 @@
     "action": "allow",
     "tags": ["IP-Team"]
   }
-}
+},
 
 {
   "Deny-SSH-Rule": {
