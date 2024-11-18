@@ -6,6 +6,7 @@ on:
       - main
 
 permissions:
+  contents: read
   secrets: read  # Ensures secrets are accessible
 
 jobs:
