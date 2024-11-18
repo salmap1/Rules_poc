@@ -52,11 +52,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Test Connectivity to Palo Alto API
-        run: |
-          echo "Testing connectivity to Palo Alto API..."
-          curl -k -v https://${{ env.PALO_ALTO_HOSTNAME }}/api/ || echo "Curl failed"
-
       - name: Terraform Apply
         run: terraform apply -auto-approve
         env:
