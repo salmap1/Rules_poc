@@ -8,11 +8,6 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    env:
-      TF_LOG: DEBUG  # Enable Terraform debug logs
-      PALO_ALTO_HOSTNAME: "10.255.49.67"
-      PALO_ALTO_USERNAME: "salmap"
-      PALO_ALTO_PASSWORD: "Plum@7890"
 
     steps:
       - name: Checkout code
@@ -33,13 +28,6 @@ jobs:
 
   apply:
     runs-on: ubuntu-latest
-    needs: validate
-    env:
-      TF_LOG: DEBUG  # Enable Terraform debug logs
-      PALO_ALTO_HOSTNAME: "10.255.49.67"
-      PALO_ALTO_USERNAME: "salmap"
-      PALO_ALTO_PASSWORD: "Plum@7890"
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -51,22 +39,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-
-      - name: Test Palo Alto Connectivity
-        run: |
-          echo "Pinging Palo Alto firewall..."
-          ping -c 4 ${{ env.PALO_ALTO_HOSTNAME }}
-          echo "Testing API connectivity..."
-          curl -k -v https://${{ env.PALO_ALTO_HOSTNAME }}/api/
      
-
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        timeout-minutes: 15  
-        env:
-          TF_VAR_paloalto_hostname: ${{ env.PALO_ALTO_HOSTNAME }}
-          TF_VAR_paloalto_username: ${{ env.PALO_ALTO_USERNAME }}
-          TF_VAR_paloalto_password: ${{ env.PALO_ALTO_PASSWORD }}
-          TF_LOG: DEBUG
-          TF_LOG_PATH: terraform-debug.log  
-
+        

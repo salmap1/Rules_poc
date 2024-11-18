@@ -9,9 +9,9 @@ terraform {
 
 # Configure the provider
 provider "panos" {
-  hostname = var.paloalto_hostname
-  username = var.paloalto_username
-  password = var.paloalto_password 
+  hostname = var.hostname
+  username = var.username
+  password = var.password 
 }
 
 # Load the security rules from the JSON file
@@ -39,23 +39,5 @@ resource "panos_security_policy" "firewall_rules" {
       tags                   = rule.value["tags"]
     }
   }
-}
-
-
-# Define variables for Palo Alto credentials (sensitive data)
-variable "paloalto_hostname" {
-  description = "The hostname or IP address of the Palo Alto firewall"
-  type        = string
-}
-
-variable "paloalto_username" {
-  description = "The username for the Palo Alto firewall"
-  type        = string
-}
-
-variable "paloalto_password" {
-  description = "The password for the Palo Alto firewall"
-  type        = string
-  sensitive   = true
 }
 
