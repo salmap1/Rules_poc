@@ -51,4 +51,5 @@ jobs:
           TF_VAR_paloalto_hostname: ${{ secrets.PALO_ALTO_HOSTNAME }}
           TF_VAR_paloalto_username: ${{ secrets.PALO_ALTO_USERNAME }}
           TF_VAR_paloalto_password: ${{ secrets.PALO_ALTO_PASSWORD }}
+          TF_LOG: DEBUG  
 
