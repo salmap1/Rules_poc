@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  secrets: read  # Ensures secrets are accessible
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -27,6 +30,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Debug Secrets (Optional)
+        run: |
+          echo "Debugging secrets:"
+          echo "PALO_ALTO_HOSTNAME: ${{ secrets.PALO_ALTO_HOSTNAME }}"
+          echo "PALO_ALTO_USERNAME: ${{ secrets.PALO_ALTO_USERNAME }}"
+          echo "PALO_ALTO_PASSWORD: ***"  # Masked for security
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
@@ -44,3 +54,4 @@ jobs:
           TF_VAR_paloalto_hostname: ${{ secrets.PALO_ALTO_HOSTNAME }}
           TF_VAR_paloalto_username: ${{ secrets.PALO_ALTO_USERNAME }}
           TF_VAR_paloalto_password: ${{ secrets.PALO_ALTO_PASSWORD }}
+
