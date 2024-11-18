@@ -11,4 +11,6 @@ variable "username" {
 variable "password" {
   description = "The password for the Palo Alto device."
   type        = string
+  sensitive   = true
 }
+

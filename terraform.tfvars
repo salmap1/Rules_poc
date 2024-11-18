@@ -1,3 +1,3 @@
-firewall_hostname = "10.255.49.67"
-firewall_username = "salmap"
-firewall_password = "Plum@7890"
+hostname = "10.255.49.67"
+username = "salmap"
+password = "Plum@7890"
