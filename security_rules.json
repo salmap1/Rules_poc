@@ -14,7 +14,7 @@
     "tags": ["IP-Team"]
   },
   "Deny-SSH-Rule": {
-    "name": "Deny-SSH-Rule_IP_Team",
+    "name": "Deny-SSH-Rule_NOC_Team",
     "description": "deny SSH traffic from any source to any destination by NOC team",
     "source_zones": ["any"],
     "source_addresses": ["1.1.1.1"],
@@ -25,7 +25,7 @@
     "applications": ["ssh"],
     "services": ["application-default"],
     "action": "deny",
-    "tags": ["IP-Team"]
+    "tags": ["NOC-Team"]
   }
 }
 
